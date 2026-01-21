@@ -55,6 +55,34 @@ body {
   background: #A855F7;
 }
 
+/* Performance optimizations for smooth animations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth transitions for interactive elements */
+button, a, [role="button"] {
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* GPU acceleration for smooth animations */
+.motion-safe\:transform-gpu {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
 /* Elev8 Alarm Logo Animations */
 @keyframes elev8AlarmBlink {
   0% {
