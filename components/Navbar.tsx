@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { Logo } from './Logo';
 import { Button } from './Button';
+import { Elev8AlarmLogo } from './Elev8AlarmLogo';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,6 +23,7 @@ export const Navbar = () => {
     { name: 'Home', href: '/' },
     { name: 'Services', href: '/services' },
     { name: 'Products', href: '/products' },
+    { name: 'Elev8 Startups', href: '/elev8-startups' },
     { name: 'About', href: '/about' },
     { name: 'Apply', href: '/apply' },
   ];
@@ -74,7 +76,14 @@ export const Navbar = () => {
                 }}
                 className="text-white/90 hover:text-purple transition-colors duration-200 font-medium text-sm"
               >
-                {link.name}
+                {link.name === 'Elev8 Startups' ? (
+                  <span className="inline-flex items-center gap-2">
+                    {link.name}
+                    <Elev8AlarmLogo size={18} />
+                  </span>
+                ) : (
+                  link.name
+                )}
               </a>
             ))}
             <Button
@@ -117,7 +126,14 @@ export const Navbar = () => {
                   }}
                   className="text-white/90 hover:text-purple transition-colors duration-200 font-medium text-lg py-2"
                 >
-                  {link.name}
+                  {link.name === 'Elev8 Startups' ? (
+                    <span className="inline-flex items-center gap-2">
+                      {link.name}
+                      <Elev8AlarmLogo size={18} />
+                    </span>
+                  ) : (
+                    link.name
+                  )}
                 </a>
               ))}
               <div className="pt-4">

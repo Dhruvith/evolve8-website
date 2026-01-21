@@ -1,0 +1,13 @@
+<svg width="120" height="60" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- ELEV8 Text -->
+  <text x="5" y="28" font-family="Outfit, sans-serif" font-size="24" font-weight="bold" fill="#9333EA">ELEV8</text>
+  
+  <!-- STARTUPS Text -->
+  <text x="5" y="45" font-family="Outfit, sans-serif" font-size="12" font-weight="600" fill="#60A5FA">STARTUPS</text>
+  
+  <!-- Upward Arrows -->
+  <!-- Gray Arrow (bottom) -->
+  <path d="M 75 35 L 85 25 L 95 35" stroke="#9CA3AF" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Green Arrow (top) -->
+  <path d="M 78 32 L 88 22 L 98 32" stroke="#22C55E" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
