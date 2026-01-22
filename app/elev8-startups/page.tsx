@@ -48,87 +48,83 @@ export default function Elev8StartupsPage() {
   }
 
   useEffect(() => {
-    // Hero title animation with GSAP
-    if (titleRef.current && !shouldReduceMotion) {
-      const chars = titleRef.current.textContent?.split('') || [];
-      titleRef.current.innerHTML = chars
-        .map((char, i) => `<span class="inline-block" style="opacity: 0;">${char === ' ' ? '&nbsp;' : char}</span>`)
-        .join('');
-      
-      const spans = titleRef.current.querySelectorAll('span');
-      gsap.to(spans, {
-        opacity: 1,
-        duration: 0.05,
-        stagger: 0.02,
-        ease: 'power2.out',
-        delay: 0.5,
-      });
+    // Hero title - ensure it's visible
+    if (titleRef.current) {
+      titleRef.current.style.opacity = '1';
     }
 
-    // Magnetic effect for buttons
+    // Magnetic effect for buttons (only if GSAP is available)
     if (typeof window !== 'undefined' && gsap) {
-      const buttons = document.querySelectorAll('[data-magnetic]');
-      buttons.forEach((button) => {
-        button.addEventListener('mousemove', (e: Event) => {
-          const mouseEvent = e as MouseEvent;
-          const rect = button.getBoundingClientRect();
-          const x = mouseEvent.clientX - rect.left - rect.width / 2;
-          const y = mouseEvent.clientY - rect.top - rect.height / 2;
-          
-          gsap.to(button, {
-            x: x * 0.3,
-            y: y * 0.3,
-            duration: 0.3,
-            ease: 'power2.out',
+      try {
+        const buttons = document.querySelectorAll('[data-magnetic]');
+        buttons.forEach((button) => {
+          button.addEventListener('mousemove', (e: Event) => {
+            const mouseEvent = e as MouseEvent;
+            const rect = button.getBoundingClientRect();
+            const x = mouseEvent.clientX - rect.left - rect.width / 2;
+            const y = mouseEvent.clientY - rect.top - rect.height / 2;
+            
+            gsap.to(button, {
+              x: x * 0.3,
+              y: y * 0.3,
+              duration: 0.3,
+              ease: 'power2.out',
+            });
           });
-        });
 
-        button.addEventListener('mouseleave', () => {
-          gsap.to(button, {
-            x: 0,
-            y: 0,
-            duration: 0.5,
-            ease: 'elastic.out(1, 0.5)',
+          button.addEventListener('mouseleave', () => {
+            gsap.to(button, {
+              x: 0,
+              y: 0,
+              duration: 0.5,
+              ease: 'elastic.out(1, 0.5)',
+            });
           });
         });
-      });
+      } catch (error) {
+        // Ignore magnetic effect errors
+      }
     }
 
     return () => {
       if (ScrollTrigger) {
-        ScrollTrigger.getAll().forEach((trigger: any) => trigger.kill());
+        try {
+          ScrollTrigger.getAll().forEach((trigger: any) => trigger.kill());
+        } catch (error) {
+          // Ignore cleanup errors
+        }
       }
     };
   }, [shouldReduceMotion]);
 
-  // Enhanced animation variants
+  // Enhanced animation variants - content visible by default
   const fadeInUp = {
-    initial: { opacity: 0, y: shouldReduceMotion ? 0 : 50 },
+    initial: { opacity: 1, y: 0 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: shouldReduceMotion ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }
   };
 
   const fadeInLeft = {
-    initial: { opacity: 0, x: shouldReduceMotion ? 0 : -50 },
+    initial: { opacity: 1, x: 0 },
     animate: { opacity: 1, x: 0 },
     transition: { duration: shouldReduceMotion ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }
   };
 
   const fadeInRight = {
-    initial: { opacity: 0, x: shouldReduceMotion ? 0 : 50 },
+    initial: { opacity: 1, x: 0 },
     animate: { opacity: 1, x: 0 },
     transition: { duration: shouldReduceMotion ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }
   };
 
   const scaleIn = {
-    initial: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.8 },
+    initial: { opacity: 1, scale: 1 },
     animate: { opacity: 1, scale: 1 }
   };
   
   const scaleInTransition = { duration: shouldReduceMotion ? 0 : 0.6, ease: [0.16, 1, 0.3, 1] };
 
   const staggerContainer = {
-    initial: { opacity: 0 },
+    initial: { opacity: 1 },
     animate: {
       opacity: 1,
       transition: {
@@ -369,7 +365,7 @@ export default function Elev8StartupsPage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
@@ -397,7 +393,7 @@ export default function Elev8StartupsPage() {
 
         {/* Scroll Indicator */}
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"

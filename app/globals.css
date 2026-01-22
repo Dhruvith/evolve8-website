@@ -36,11 +36,27 @@ body {
 main {
   position: relative;
   z-index: 1;
+  min-height: 100vh;
 }
 
 section {
   position: relative;
   z-index: 1;
+  opacity: 1 !important;
+}
+
+/* Ensure all text is visible */
+h1, h2, h3, h4, h5, h6, p, span, div {
+  opacity: 1 !important;
+  color: inherit;
+}
+
+/* Override any hidden states */
+[data-gsap-element],
+[data-gsap-text],
+[data-gsap-parallax] {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 @layer utilities {
