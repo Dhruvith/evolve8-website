@@ -1,9 +1,6 @@
 'use client';
 
 import { useRef, useMemo } from 'react';
-'use client';
-
-import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh, Group } from 'three';
 
