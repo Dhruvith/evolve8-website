@@ -3,7 +3,7 @@
 import React from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { Elev8AlarmLogo } from '@/components/Elev8AlarmLogo';
 import { Button } from '@/components/Button';
 import Image from 'next/image';
@@ -22,38 +22,53 @@ import {
   CheckCircle2,
   Building2,
   Rocket,
-  DollarSign
+  DollarSign,
+  Sparkles,
+  Play
 } from 'lucide-react';
 
 export default function Elev8StartupsPage() {
   const shouldReduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
 
-  // Optimized animation variants
+  // Enhanced animation variants with more sophisticated easing
   const fadeInUp = {
-    initial: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
+    initial: { opacity: 0, y: shouldReduceMotion ? 0 : 50 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: shouldReduceMotion ? 0 : 0.6, ease: [0.6, -0.05, 0.01, 0.99] }
+    transition: { duration: shouldReduceMotion ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }
   };
 
   const fadeInLeft = {
-    initial: { opacity: 0, x: shouldReduceMotion ? 0 : -30 },
+    initial: { opacity: 0, x: shouldReduceMotion ? 0 : -50 },
     animate: { opacity: 1, x: 0 },
-    transition: { duration: shouldReduceMotion ? 0 : 0.6, ease: [0.6, -0.05, 0.01, 0.99] }
+    transition: { duration: shouldReduceMotion ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }
   };
 
   const fadeInRight = {
-    initial: { opacity: 0, x: shouldReduceMotion ? 0 : 30 },
+    initial: { opacity: 0, x: shouldReduceMotion ? 0 : 50 },
     animate: { opacity: 1, x: 0 },
-    transition: { duration: shouldReduceMotion ? 0 : 0.6, ease: [0.6, -0.05, 0.01, 0.99] }
+    transition: { duration: shouldReduceMotion ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }
   };
 
   const scaleIn = {
-    initial: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.9 },
+    initial: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.8 },
     animate: { opacity: 1, scale: 1 },
-    transition: { duration: shouldReduceMotion ? 0 : 0.5, ease: [0.6, -0.05, 0.01, 0.99] }
+    transition: { duration: shouldReduceMotion ? 0 : 0.6, ease: [0.16, 1, 0.3, 1] }
   };
 
-  const viewportOptions = { once: true, margin: '-100px' };
+  const staggerContainer = {
+    initial: { opacity: 0 },
+    animate: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const viewportOptions = { once: true, margin: '-150px' };
 
   const sectors = [
     'Robotics',
@@ -69,37 +84,44 @@ export default function Elev8StartupsPage() {
     {
       icon: Rocket,
       title: 'Transform Ideas into MVPs',
-      description: 'Convert early-stage concepts into functional, market-ready products'
+      description: 'Convert early-stage concepts into functional, market-ready products',
+      gradient: 'from-purple to-violet'
     },
     {
       icon: Globe,
       title: 'Cross-Border Growth',
-      description: 'Foster expansion between India and UAE markets'
+      description: 'Foster expansion between India and UAE markets',
+      gradient: 'from-violet to-lightPurple'
     },
     {
       icon: Briefcase,
       title: 'Resource Access',
-      description: 'Provide comprehensive startup resources and infrastructure'
+      description: 'Provide comprehensive startup resources and infrastructure',
+      gradient: 'from-lightPurple to-purple'
     },
     {
       icon: Target,
       title: 'Product-Market Fit',
-      description: 'Build strong alignment between products and target markets'
+      description: 'Build strong alignment between products and target markets',
+      gradient: 'from-purple to-violet'
     },
     {
       icon: Building2,
       title: 'Sustainable Business Models',
-      description: 'Establish viable, scalable business foundations'
+      description: 'Establish viable, scalable business foundations',
+      gradient: 'from-violet to-lightPurple'
     },
     {
       icon: DollarSign,
       title: 'Early-Stage Funding',
-      description: 'Secure initial investment and funding opportunities'
+      description: 'Secure initial investment and funding opportunities',
+      gradient: 'from-lightPurple to-purple'
     },
     {
       icon: TrendingUp,
       title: 'Market Expansion',
-      description: 'Expand into new markets and customer segments'
+      description: 'Expand into new markets and customer segments',
+      gradient: 'from-purple to-violet'
     }
   ];
 
@@ -113,7 +135,9 @@ export default function Elev8StartupsPage() {
         'Understanding solutions',
         'User identification',
         'Goal setting'
-      ]
+      ],
+      colorClass: 'text-purple',
+      bgClass: 'from-purple/20'
     },
     {
       number: '02',
@@ -124,7 +148,9 @@ export default function Elev8StartupsPage() {
         'Competitor benchmarking',
         'Solution overview',
         'MVP development'
-      ]
+      ],
+      colorClass: 'text-violet',
+      bgClass: 'from-violet/20'
     },
     {
       number: '03',
@@ -134,7 +160,9 @@ export default function Elev8StartupsPage() {
         'Go-to-market strategy',
         'Investor deck preparation',
         'MVP refinement'
-      ]
+      ],
+      colorClass: 'text-lightPurple',
+      bgClass: 'from-lightPurple/20'
     },
     {
       number: '04',
@@ -144,7 +172,9 @@ export default function Elev8StartupsPage() {
         'Investor pitching',
         'Demo Day with panel',
         'Legal, branding, and marketing support'
-      ]
+      ],
+      colorClass: 'text-purple',
+      bgClass: 'from-purple/20'
     }
   ];
 
@@ -187,59 +217,155 @@ export default function Elev8StartupsPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-dark">
+    <main className="min-h-screen bg-dark overflow-hidden">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden bg-gradient-to-br from-dark via-darkPurple to-dark">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239333EA' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+      {/* Hero Section - Inspired by PSL.com */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-dark via-darkPurple/80 to-dark"></div>
+          {/* Animated gradient orbs */}
+          <motion.div
+            className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple/20 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.2, 1],
+              x: [0, 50, 0],
+              y: [0, 30, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet/20 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.3, 1],
+              x: [0, -50, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          {/* Pattern overlay */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%239333EA' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
           }}></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
           <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: [0.6, -0.05, 0.01, 0.99] }}
-            className="text-center mb-12"
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="text-center"
           >
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-8">
-              <div className="flex-shrink-0">
-                <Elev8AlarmLogo size={56} />
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex justify-center mb-8"
+            >
+              <Elev8AlarmLogo size={72} />
+            </motion.div>
+            
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-6xl md:text-8xl lg:text-9xl font-display font-bold text-white mb-6 leading-[0.9] tracking-tight"
+            >
+              Elev8 Alpha
+            </motion.h1>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="inline-block mb-12"
+            >
+              <div className="relative px-8 py-4 bg-gradient-to-r from-purple/20 via-violet/20 to-lightPurple/20 backdrop-blur-md border border-purple/30 rounded-full">
+                <p className="text-xl md:text-2xl lg:text-3xl font-display font-semibold text-white">
+                  Startup Accelerator by Evolve8 Studio
+                </p>
+                <div className="absolute inset-0 bg-gradient-to-r from-purple via-violet to-lightPurple opacity-20 rounded-full blur-xl"></div>
               </div>
-              <div className="text-center md:text-left">
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white mb-3 leading-tight">
-                  Elev8 Alpha
-                </h1>
-                <div className="bg-gradient-to-r from-purple via-violet to-lightPurple px-4 md:px-6 py-2 md:py-3 rounded-full inline-block">
-                  <p className="text-lg md:text-xl lg:text-2xl font-display font-bold text-white">
-                    Startup Accelerator by Evolve8 Studio
-                  </p>
-                </div>
-              </div>
-            </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            >
+              <Button
+                onClick={() => window.location.href = '/elev8-startups#apply-now'}
+                variant="primary"
+                className="group text-lg px-8 py-4 bg-gradient-to-r from-purple to-violet shadow-2xl shadow-purple/50 hover:shadow-purple/70 hover:scale-105 transition-all duration-300"
+              >
+                Apply for Elev8 Alpha
+                <ArrowRight className="inline-block ml-3 group-hover:translate-x-1 transition-transform" size={24} />
+              </Button>
+              <Button
+                onClick={() => window.location.href = '/elev8-startups#contact'}
+                variant="outline"
+                className="text-lg px-8 py-4 border-2 border-purple/50 hover:border-purple hover:bg-purple/10 transition-all duration-300"
+              >
+                Learn More
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.2 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+        >
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="flex flex-col items-center gap-2"
+          >
+            <span className="text-xs text-gray uppercase tracking-wider">Scroll</span>
+            <div className="w-6 h-10 border-2 border-purple/50 rounded-full flex justify-center p-2">
+              <motion.div
+                animate={{ y: [0, 12, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="w-1 h-3 bg-purple rounded-full"
+              />
+            </div>
+          </motion.div>
+        </motion.div>
       </section>
 
-      {/* About Evolve8 Studio */}
-      <section className="py-20 md:py-32 bg-darkPurple/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* About Evolve8 Studio - Clean Section */}
+      <section className="relative py-32 md:py-40 bg-dark">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-darkPurple/30 to-transparent"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={fadeInUp.initial}
             whileInView={fadeInUp.animate}
             viewport={viewportOptions}
             transition={fadeInUp.transition}
-            className="flex flex-col md:flex-row items-start gap-4 md:gap-6 mb-8"
+            className="flex flex-col md:flex-row items-start gap-6 mb-12"
           >
             <div className="flex-shrink-0">
-              <Elev8AlarmLogo size={40} />
+              <Elev8AlarmLogo size={48} />
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white">
-              About Evolve8 Studio
-            </h2>
+            <div>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
+                About Evolve8 Studio
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-purple to-violet rounded-full"></div>
+            </div>
           </motion.div>
           <motion.div
             initial={fadeInUp.initial}
@@ -248,7 +374,7 @@ export default function Elev8StartupsPage() {
             transition={{ ...fadeInUp.transition, delay: 0.2 }}
             className="max-w-4xl"
           >
-            <p className="text-base md:text-lg lg:text-xl text-gray leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray leading-relaxed">
               Evolve8 Studio is a Dubai-based Venture Studio focused on empowering startups. 
               We provide comprehensive support in MVP development, business modeling, branding, 
               funding, and market expansion, with a strong focus on India and UAE markets.
@@ -257,83 +383,99 @@ export default function Elev8StartupsPage() {
         </div>
       </section>
 
-      {/* Program Overview */}
-      <section className="py-20 md:py-32 bg-dark">
+      {/* Program Overview - Modern Card Design */}
+      <section className="relative py-32 md:py-40 bg-darkPurple/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={fadeInUp.initial}
             whileInView={fadeInUp.animate}
             viewport={viewportOptions}
             transition={fadeInUp.transition}
-            className="mb-12"
+            className="mb-16"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
               Program Overview
             </h2>
-            <p className="text-base md:text-lg lg:text-xl text-gray max-w-4xl leading-relaxed mb-8">
+            <div className="w-24 h-1 bg-gradient-to-r from-purple to-violet rounded-full mb-8"></div>
+            <p className="text-xl md:text-2xl text-gray max-w-4xl leading-relaxed">
               Elev8 Alpha is a <strong className="text-white font-semibold">12-week hybrid accelerator program</strong> designed for 
               tech startups. With a physical presence in Dubai/UAE and digital reach across UAE, 
               we provide full startup transformation—from idea to Alpha.
             </p>
-            <div className="flex flex-wrap gap-3">
-              {sectors.map((sector, index) => (
-                <motion.div
-                  key={sector}
-                  initial={scaleIn.initial}
-                  whileInView={scaleIn.animate}
-                  viewport={viewportOptions}
-                  transition={{ ...scaleIn.transition, delay: index * 0.05 }}
-                  whileHover={{ scale: 1.05 }}
-                  className="px-4 md:px-6 py-2 md:py-3 bg-purple/20 border border-purple/30 text-white rounded-full font-semibold backdrop-blur-sm hover:bg-purple/30 hover:border-purple/50 transition-all duration-300 cursor-default"
-                >
-                  {sector}
-                </motion.div>
-              ))}
-            </div>
+          </motion.div>
+          
+          <motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={viewportOptions}
+            className="flex flex-wrap gap-4"
+          >
+            {sectors.map((sector, index) => (
+              <motion.div
+                key={sector}
+                variants={scaleIn}
+                whileHover={{ scale: 1.05, y: -4 }}
+                className="group relative px-6 py-4 bg-gradient-to-br from-darkPurple/80 to-darkPurple/40 border border-purple/30 rounded-2xl backdrop-blur-sm hover:border-purple/60 hover:shadow-xl hover:shadow-purple/20 transition-all duration-300 cursor-default overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-purple/0 to-purple/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <span className="relative text-white font-semibold text-lg">{sector}</span>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Objectives */}
-      <section className="py-20 md:py-32 bg-darkPurple/50">
+      {/* Objectives - Enhanced Card Design */}
+      <section className="relative py-32 md:py-40 bg-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={fadeInUp.initial}
             whileInView={fadeInUp.animate}
             viewport={viewportOptions}
             transition={fadeInUp.transition}
-            className="flex flex-col md:flex-row items-start gap-4 md:gap-6 mb-12"
+            className="flex flex-col md:flex-row items-start gap-6 mb-16"
           >
             <div className="flex-shrink-0">
-              <Elev8AlarmLogo size={40} />
+              <Elev8AlarmLogo size={48} />
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white">
-              Objectives
-            </h2>
+            <div>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
+                Objectives
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-purple to-violet rounded-full"></div>
+            </div>
           </motion.div>
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
+          
+          <div className="grid md:grid-cols-2 gap-8">
             <motion.div
               initial={fadeInLeft.initial}
               whileInView={fadeInLeft.animate}
               viewport={viewportOptions}
               transition={fadeInLeft.transition}
-              className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl border border-purple/20 group"
+              className="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-purple/20 group"
             >
-              <Image
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-                alt="Target and objectives"
-                fill
-                className="object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-500"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-darkPurple via-purple/10 to-transparent"></div>
+              <motion.div
+                style={{ y }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+                  alt="Target and objectives"
+                  fill
+                  className="object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-500"
+                  loading="lazy"
+                />
+              </motion.div>
+              <div className="absolute inset-0 bg-gradient-to-t from-darkPurple via-purple/20 to-transparent"></div>
             </motion.div>
+            
             <motion.div
               initial={fadeInRight.initial}
               whileInView={fadeInRight.animate}
               viewport={viewportOptions}
               transition={fadeInRight.transition}
-              className="space-y-4 md:space-y-6"
+              className="space-y-4"
             >
               {objectives.map((obj, index) => (
                 <motion.div
@@ -341,18 +483,21 @@ export default function Elev8StartupsPage() {
                   initial={fadeInUp.initial}
                   whileInView={fadeInUp.animate}
                   viewport={viewportOptions}
-                  transition={{ ...fadeInUp.transition, delay: index * 0.08 }}
-                  whileHover={{ x: 4 }}
-                  className="flex gap-4 p-4 md:p-6 bg-darkPurple/80 border border-purple/30 rounded-xl hover:border-purple/50 hover:bg-darkPurple/90 transition-all duration-300 backdrop-blur-sm group"
+                  transition={{ ...fadeInUp.transition, delay: index * 0.06 }}
+                  whileHover={{ x: 8, scale: 1.02 }}
+                  className="group relative p-6 bg-gradient-to-br from-darkPurple/90 to-darkPurple/60 border border-purple/30 rounded-2xl hover:border-purple/60 hover:shadow-xl hover:shadow-purple/20 transition-all duration-300 backdrop-blur-sm overflow-hidden"
                 >
-                  <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full bg-purple/20 border border-purple/30 flex items-center justify-center group-hover:bg-purple/30 group-hover:border-purple/50 transition-all duration-300">
-                    <obj.icon className="w-5 h-5 md:w-6 md:h-6 text-purple" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-display font-bold text-base md:text-lg text-white mb-1">
-                      {obj.title}
-                    </h3>
-                    <p className="text-sm md:text-base text-gray leading-relaxed">{obj.description}</p>
+                  <div className={`absolute inset-0 bg-gradient-to-br ${obj.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
+                  <div className="relative flex gap-4">
+                    <div className={`flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br ${obj.gradient} p-3 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                      <obj.icon className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-display font-bold text-xl text-white mb-2">
+                        {obj.title}
+                      </h3>
+                      <p className="text-gray leading-relaxed">{obj.description}</p>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -361,23 +506,27 @@ export default function Elev8StartupsPage() {
         </div>
       </section>
 
-      {/* Elev8 Alpha Structure */}
-      <section className="py-20 md:py-32 bg-dark">
+      {/* Elev8 Alpha Structure - Enhanced Phase Cards */}
+      <section className="relative py-32 md:py-40 bg-darkPurple/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={fadeInUp.initial}
             whileInView={fadeInUp.animate}
             viewport={viewportOptions}
             transition={fadeInUp.transition}
-            className="flex flex-col md:flex-row items-start gap-4 md:gap-6 mb-12 md:mb-16"
+            className="flex flex-col md:flex-row items-start gap-6 mb-16"
           >
             <div className="flex-shrink-0">
-              <Elev8AlarmLogo size={40} />
+              <Elev8AlarmLogo size={48} />
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white">
-              Elev8 Alpha Structure
-            </h2>
+            <div>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
+                Elev8 Alpha Structure
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-purple to-violet rounded-full"></div>
+            </div>
           </motion.div>
+          
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {phases.map((phase, index) => (
               <motion.div
@@ -386,54 +535,61 @@ export default function Elev8StartupsPage() {
                 whileInView={fadeInUp.animate}
                 viewport={viewportOptions}
                 transition={{ ...fadeInUp.transition, delay: index * 0.1 }}
-                whileHover={{ y: -4 }}
-                className="bg-darkPurple/80 border border-purple/30 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl hover:shadow-purple/20 hover:border-purple/50 transition-all duration-300 backdrop-blur-sm group"
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="group relative p-8 bg-gradient-to-br from-darkPurple/90 to-darkPurple/60 border border-purple/30 rounded-3xl hover:border-purple/60 hover:shadow-2xl hover:shadow-purple/30 transition-all duration-300 backdrop-blur-sm overflow-hidden"
               >
-                <div className="text-5xl md:text-6xl font-display font-bold text-purple/20 mb-3 md:mb-4 group-hover:text-purple/30 transition-colors">
-                  {phase.number}
+                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${phase.bgClass} to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
+                <div className="relative">
+                  <div className={`text-7xl font-display font-bold ${phase.colorClass}/20 mb-4 group-hover:${phase.colorClass}/30 transition-colors`}>
+                    {phase.number}
+                  </div>
+                  <div className={`text-sm font-semibold ${phase.colorClass} mb-3`}>{phase.weeks}</div>
+                  <h3 className="text-2xl font-display font-bold text-white mb-6">
+                    {phase.title}
+                  </h3>
+                  <ul className="space-y-3">
+                    {phase.items.map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-gray">
+                        <CheckCircle2 className={`w-5 h-5 ${phase.colorClass} flex-shrink-0 mt-0.5`} />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <div className="text-xs md:text-sm font-semibold text-purple mb-2">{phase.weeks}</div>
-                <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-3 md:mb-4">
-                  {phase.title}
-                </h3>
-                <ul className="space-y-2">
-                  {phase.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-sm md:text-base text-gray">
-                      <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-purple flex-shrink-0 mt-0.5" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 10 Masterclass Sessions */}
-      <section className="py-20 md:py-32 bg-darkPurple/50">
+      {/* 10 Masterclass Sessions - Modern Timeline */}
+      <section className="relative py-32 md:py-40 bg-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={fadeInUp.initial}
             whileInView={fadeInUp.animate}
             viewport={viewportOptions}
             transition={fadeInUp.transition}
-            className="flex flex-col md:flex-row items-start gap-4 md:gap-6 mb-12"
+            className="flex flex-col md:flex-row items-start gap-6 mb-16"
           >
             <div className="flex-shrink-0">
-              <Elev8AlarmLogo size={40} />
+              <Elev8AlarmLogo size={48} />
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white">
-              10 Masterclass Sessions
-            </h2>
+            <div>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
+                10 Masterclass Sessions
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-purple to-violet rounded-full"></div>
+            </div>
           </motion.div>
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          
+          <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={fadeInLeft.initial}
               whileInView={fadeInLeft.animate}
               viewport={viewportOptions}
               transition={fadeInLeft.transition}
-              className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-xl border border-purple/20 group order-2 md:order-1"
+              className="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-purple/20 group order-2 md:order-1"
             >
               <Image
                 src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
@@ -442,14 +598,15 @@ export default function Elev8StartupsPage() {
                 className="object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-500"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-darkPurple via-purple/10 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-darkPurple via-purple/20 to-transparent"></div>
             </motion.div>
+            
             <motion.div
               initial={fadeInRight.initial}
               whileInView={fadeInRight.animate}
               viewport={viewportOptions}
               transition={fadeInRight.transition}
-              className="space-y-3 md:space-y-4 order-1 md:order-2"
+              className="space-y-3 order-1 md:order-2"
             >
               {masterclasses.map((session, index) => (
                 <motion.div
@@ -458,14 +615,15 @@ export default function Elev8StartupsPage() {
                   whileInView={fadeInUp.animate}
                   viewport={viewportOptions}
                   transition={{ ...fadeInUp.transition, delay: index * 0.04 }}
-                  whileHover={{ x: 4 }}
-                  className="flex items-center gap-4 md:gap-6 p-4 md:p-6 bg-darkPurple/80 border border-purple/30 rounded-xl hover:border-purple/50 hover:bg-darkPurple/90 transition-all duration-300 backdrop-blur-sm group"
+                  whileHover={{ x: 8, scale: 1.02 }}
+                  className="group relative flex items-center gap-6 p-6 bg-gradient-to-br from-darkPurple/90 to-darkPurple/60 border border-purple/30 rounded-2xl hover:border-purple/60 hover:shadow-xl hover:shadow-purple/20 transition-all duration-300 backdrop-blur-sm overflow-hidden"
                 >
-                  <div className="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 rounded-full bg-purple/20 border border-purple/30 flex items-center justify-center text-white font-display font-bold text-lg md:text-xl group-hover:bg-purple/30 group-hover:border-purple/50 transition-all duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple/0 via-purple/5 to-purple/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-purple to-violet flex items-center justify-center text-white font-display font-bold text-xl group-hover:scale-110 transition-transform duration-300">
                     {session.week}
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-display font-semibold text-base md:text-lg text-white">
+                  <div className="relative flex-1">
+                    <h3 className="font-display font-semibold text-xl text-white">
                       {session.topic}
                     </h3>
                   </div>
@@ -476,24 +634,28 @@ export default function Elev8StartupsPage() {
         </div>
       </section>
 
-      {/* Startup Support & Deliverables */}
-      <section className="py-20 md:py-32 bg-dark">
+      {/* Startup Support & Deliverables - Enhanced Layout */}
+      <section className="relative py-32 md:py-40 bg-darkPurple/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={fadeInUp.initial}
             whileInView={fadeInUp.animate}
             viewport={viewportOptions}
             transition={fadeInUp.transition}
-            className="flex flex-col md:flex-row items-start gap-4 md:gap-6 mb-12"
+            className="flex flex-col md:flex-row items-start gap-6 mb-16"
           >
             <div className="flex-shrink-0">
-              <Elev8AlarmLogo size={40} />
+              <Elev8AlarmLogo size={48} />
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white">
-              Startup Support & Deliverables
-            </h2>
+            <div>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
+                Startup Support & Deliverables
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-purple to-violet rounded-full"></div>
+            </div>
           </motion.div>
-          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+          
+          <div className="grid md:grid-cols-3 gap-8">
             <motion.div
               initial={fadeInLeft.initial}
               whileInView={fadeInLeft.animate}
@@ -501,10 +663,8 @@ export default function Elev8StartupsPage() {
               transition={fadeInLeft.transition}
               className="md:col-span-1"
             >
-              <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-6">
-                Deliverables
-              </h3>
-              <ul className="space-y-3 md:space-y-4">
+              <h3 className="text-2xl font-display font-bold text-white mb-6">Deliverables</h3>
+              <ul className="space-y-4">
                 {deliverables.map((item, index) => (
                   <motion.li
                     key={item}
@@ -512,20 +672,21 @@ export default function Elev8StartupsPage() {
                     whileInView={fadeInLeft.animate}
                     viewport={viewportOptions}
                     transition={{ ...fadeInLeft.transition, delay: index * 0.05 }}
-                    className="flex items-start gap-3"
+                    className="flex items-start gap-3 p-4 bg-darkPurple/60 border border-purple/20 rounded-xl hover:border-purple/40 transition-colors"
                   >
-                    <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-purple flex-shrink-0 mt-0.5" />
-                    <span className="text-sm md:text-base text-gray leading-relaxed">{item}</span>
+                    <CheckCircle2 className="w-6 h-6 text-purple flex-shrink-0 mt-0.5" />
+                    <span className="text-gray leading-relaxed">{item}</span>
                   </motion.li>
                 ))}
               </ul>
             </motion.div>
+            
             <motion.div
               initial={scaleIn.initial}
               whileInView={scaleIn.animate}
               viewport={viewportOptions}
               transition={scaleIn.transition}
-              className="md:col-span-1 relative h-[350px] md:h-[400px] rounded-2xl overflow-hidden shadow-xl border border-purple/20 group order-3 md:order-2"
+              className="md:col-span-1 relative h-[400px] rounded-3xl overflow-hidden shadow-2xl border border-purple/20 group order-3 md:order-2"
             >
               <Image
                 src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80"
@@ -534,8 +695,9 @@ export default function Elev8StartupsPage() {
                 className="object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-500"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-darkPurple via-purple/10 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-darkPurple via-purple/20 to-transparent"></div>
             </motion.div>
+            
             <motion.div
               initial={fadeInRight.initial}
               whileInView={fadeInRight.animate}
@@ -543,10 +705,8 @@ export default function Elev8StartupsPage() {
               transition={fadeInRight.transition}
               className="md:col-span-1 order-2 md:order-3"
             >
-              <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-6">
-                Mentorship & Network Access
-              </h3>
-              <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8">
+              <h3 className="text-2xl font-display font-bold text-white mb-6">Mentorship & Network</h3>
+              <ul className="space-y-4 mb-8">
                 {mentorshipBenefits.map((item, index) => (
                   <motion.li
                     key={item}
@@ -554,60 +714,67 @@ export default function Elev8StartupsPage() {
                     whileInView={fadeInRight.animate}
                     viewport={viewportOptions}
                     transition={{ ...fadeInRight.transition, delay: index * 0.05 }}
-                    className="flex items-start gap-3"
+                    className="flex items-start gap-3 p-4 bg-darkPurple/60 border border-purple/20 rounded-xl hover:border-purple/40 transition-colors"
                   >
-                    <Users className="w-5 h-5 md:w-6 md:h-6 text-purple flex-shrink-0 mt-0.5" />
-                    <span className="text-sm md:text-base text-gray leading-relaxed">{item}</span>
+                    <Users className="w-6 h-6 text-purple flex-shrink-0 mt-0.5" />
+                    <span className="text-gray leading-relaxed">{item}</span>
                   </motion.li>
                 ))}
               </ul>
               <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="bg-gradient-to-r from-purple via-violet to-lightPurple p-4 md:p-6 rounded-xl border border-purple/30"
+                whileHover={{ scale: 1.02, y: -4 }}
+                className="relative p-6 bg-gradient-to-br from-purple via-violet to-lightPurple rounded-2xl border border-purple/30 overflow-hidden group"
               >
-                <div className="flex items-center gap-3 mb-2">
-                  <Calendar className="w-5 h-5 md:w-6 md:h-6 text-white" />
-                  <h4 className="font-display font-bold text-lg md:text-xl text-white">Demo Day</h4>
+                <div className="absolute inset-0 bg-gradient-to-br from-purple/50 to-violet/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Calendar className="w-6 h-6 text-white" />
+                    <h4 className="font-display font-bold text-xl text-white">Demo Day</h4>
+                  </div>
+                  <p className="text-3xl font-display font-bold text-white mb-2">December 15, 2025</p>
+                  <p className="text-purple-100 leading-relaxed">
+                    Present your startup to a panel of investors and industry leaders
+                  </p>
                 </div>
-                <p className="text-xl md:text-2xl font-display font-bold text-white mb-2">December 15, 2025</p>
-                <p className="text-sm md:text-base text-purple-100 leading-relaxed">
-                  Present your startup to a panel of investors and industry leaders
-                </p>
               </motion.div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Why Startups Join Us */}
-      <section className="py-20 md:py-32 bg-darkPurple/50">
+      {/* Why Startups Join Us - Bold Manifesto */}
+      <section className="relative py-32 md:py-40 bg-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={fadeInUp.initial}
             whileInView={fadeInUp.animate}
             viewport={viewportOptions}
             transition={fadeInUp.transition}
-            className="flex flex-col md:flex-row items-start gap-4 md:gap-6 mb-12"
+            className="flex flex-col md:flex-row items-start gap-6 mb-16"
           >
             <div className="flex-shrink-0">
-              <Elev8AlarmLogo size={40} />
+              <Elev8AlarmLogo size={48} />
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white">
-              Why Startups Join Us?
-            </h2>
+            <div>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
+                Why Startups Join Us?
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-purple to-violet rounded-full"></div>
+            </div>
           </motion.div>
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          
+          <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={fadeInLeft.initial}
               whileInView={fadeInLeft.animate}
               viewport={viewportOptions}
               transition={fadeInLeft.transition}
-              className="space-y-4 md:space-y-6"
+              className="space-y-6"
             >
-              <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-4 md:mb-6">
+              <h3 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
                 Cross-Border Expansion Opportunity
               </h3>
-              <ul className="space-y-3 md:space-y-4">
+              <ul className="space-y-4">
                 {[
                   { icon: Building2, text: 'Assistance with UAE incorporation' },
                   { icon: Users, text: 'Mentor matching with industry experts' },
@@ -620,20 +787,21 @@ export default function Elev8StartupsPage() {
                     whileInView={fadeInLeft.animate}
                     viewport={viewportOptions}
                     transition={{ ...fadeInLeft.transition, delay: index * 0.08 }}
-                    className="flex items-start gap-3"
+                    className="flex items-start gap-4 p-4 bg-darkPurple/60 border border-purple/20 rounded-xl hover:border-purple/40 transition-colors"
                   >
-                    <item.icon className="w-5 h-5 md:w-6 md:h-6 text-purple flex-shrink-0 mt-0.5" />
-                    <span className="text-sm md:text-base text-gray leading-relaxed">{item.text}</span>
+                    <item.icon className="w-6 h-6 text-purple flex-shrink-0 mt-0.5" />
+                    <span className="text-gray leading-relaxed">{item.text}</span>
                   </motion.li>
                 ))}
               </ul>
             </motion.div>
+            
             <motion.div
               initial={fadeInRight.initial}
               whileInView={fadeInRight.animate}
               viewport={viewportOptions}
               transition={fadeInRight.transition}
-              className="relative h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-xl border border-purple/20 group order-first md:order-last"
+              className="relative h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-purple/20 group order-first md:order-last"
             >
               <Image
                 src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
@@ -642,15 +810,17 @@ export default function Elev8StartupsPage() {
                 className="object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-500"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-darkPurple via-purple/10 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-darkPurple via-purple/20 to-transparent"></div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Manifesto Quote */}
-      <section className="py-20 md:py-32 bg-gradient-to-r from-purple via-violet to-lightPurple">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Manifesto Quote - Bold Statement */}
+      <section className="relative py-32 md:py-40 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple via-violet to-lightPurple"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"100\" height=\"100\" viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E')] opacity-20"></div>
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={scaleIn.initial}
             whileInView={scaleIn.animate}
@@ -658,30 +828,35 @@ export default function Elev8StartupsPage() {
             transition={scaleIn.transition}
             className="text-center"
           >
-            <p className="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-white leading-tight">
+            <Sparkles className="w-16 h-16 text-white/50 mx-auto mb-8" />
+            <p className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight">
               WE'RE NOT JUST ACCELERATING IDEAS, WE'RE SHAPING FUTURE FOUNDERS, PRODUCTS, AND ECOSYSTEMS ACROSS INDIA AND THE UAE.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Key Timelines */}
-      <section className="py-20 md:py-32 bg-dark">
+      {/* Key Timelines - Modern Timeline Design */}
+      <section className="relative py-32 md:py-40 bg-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={fadeInUp.initial}
             whileInView={fadeInUp.animate}
             viewport={viewportOptions}
             transition={fadeInUp.transition}
-            className="flex flex-col md:flex-row items-start gap-4 md:gap-6 mb-12"
+            className="flex flex-col md:flex-row items-start gap-6 mb-16"
           >
             <div className="flex-shrink-0">
-              <Elev8AlarmLogo size={40} />
+              <Elev8AlarmLogo size={48} />
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white">
-              Key Timelines
-            </h2>
+            <div>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
+                Key Timelines
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-purple to-violet rounded-full"></div>
+            </div>
           </motion.div>
+          
           <motion.div
             initial={fadeInUp.initial}
             whileInView={fadeInUp.animate}
@@ -689,8 +864,8 @@ export default function Elev8StartupsPage() {
             transition={{ ...fadeInUp.transition, delay: 0.2 }}
             className="max-w-4xl"
           >
-            <div className="bg-darkPurple/80 border border-purple/30 rounded-2xl p-6 md:p-8 shadow-lg backdrop-blur-sm">
-              <div className="space-y-4 md:space-y-6">
+            <div className="bg-gradient-to-br from-darkPurple/90 to-darkPurple/60 border border-purple/30 rounded-3xl p-8 md:p-12 shadow-2xl backdrop-blur-sm">
+              <div className="space-y-6">
                 {timelines.map((timeline, index) => (
                   <motion.div
                     key={timeline.milestone}
@@ -698,13 +873,13 @@ export default function Elev8StartupsPage() {
                     whileInView={fadeInLeft.animate}
                     viewport={viewportOptions}
                     transition={{ ...fadeInLeft.transition, delay: index * 0.1 }}
-                    whileHover={{ x: 4 }}
-                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 md:p-6 bg-dark border border-purple/30 rounded-xl hover:border-purple/50 transition-all duration-300 group"
+                    whileHover={{ x: 8, scale: 1.02 }}
+                    className="group flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 bg-dark border border-purple/30 rounded-2xl hover:border-purple/60 hover:shadow-xl hover:shadow-purple/20 transition-all duration-300"
                   >
-                    <span className="text-lg md:text-xl font-display font-semibold text-white">
+                    <span className="text-xl md:text-2xl font-display font-semibold text-white">
                       {timeline.milestone}
                     </span>
-                    <span className="text-base md:text-lg font-semibold text-purple group-hover:text-lightPurple transition-colors">
+                    <span className="text-xl md:text-2xl font-display font-bold bg-gradient-to-r from-purple to-violet bg-clip-text text-transparent group-hover:from-violet group-hover:to-lightPurple transition-all">
                       {timeline.date}
                     </span>
                   </motion.div>
@@ -715,8 +890,8 @@ export default function Elev8StartupsPage() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-20 md:py-32 bg-darkPurple/50">
+      {/* Contact Section - Enhanced */}
+      <section id="contact" className="relative py-32 md:py-40 bg-darkPurple/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={fadeInUp.initial}
@@ -725,28 +900,28 @@ export default function Elev8StartupsPage() {
             transition={fadeInUp.transition}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-8">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-8 leading-tight">
               Contact
             </h2>
             <div className="flex justify-center mb-8">
-              <Elev8AlarmLogo size={64} />
+              <Elev8AlarmLogo size={72} />
             </div>
-            <p className="text-base md:text-lg lg:text-xl text-gray max-w-2xl mx-auto mb-8 leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray max-w-2xl mx-auto mb-12 leading-relaxed">
               Ready to transform your startup idea into reality? Get in touch with us to learn more about Elev8 Alpha.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <motion.a
                 href="tel:+916353764766"
                 initial={scaleIn.initial}
                 whileInView={scaleIn.animate}
                 viewport={viewportOptions}
                 transition={scaleIn.transition}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, y: -4 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 bg-darkPurple/80 border border-purple/30 rounded-full hover:border-purple/50 hover:bg-darkPurple/90 transition-all duration-300 text-white font-semibold backdrop-blur-sm"
+                className="flex items-center gap-3 px-8 py-4 bg-gradient-to-br from-darkPurple/90 to-darkPurple/60 border border-purple/30 rounded-full hover:border-purple/60 hover:shadow-xl hover:shadow-purple/20 transition-all duration-300 text-white font-semibold backdrop-blur-sm"
               >
-                <Phone className="w-5 h-5 text-purple" />
-                <span className="text-sm md:text-base">+91 6353764766</span>
+                <Phone className="w-6 h-6 text-purple" />
+                <span>+91 6353764766</span>
               </motion.a>
               <motion.a
                 href="mailto:elev8alpha@evolve8studio.com"
@@ -754,12 +929,12 @@ export default function Elev8StartupsPage() {
                 whileInView={scaleIn.animate}
                 viewport={viewportOptions}
                 transition={{ ...scaleIn.transition, delay: 0.1 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, y: -4 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 bg-darkPurple/80 border border-purple/30 rounded-full hover:border-purple/50 hover:bg-darkPurple/90 transition-all duration-300 text-white font-semibold backdrop-blur-sm"
+                className="flex items-center gap-3 px-8 py-4 bg-gradient-to-br from-darkPurple/90 to-darkPurple/60 border border-purple/30 rounded-full hover:border-purple/60 hover:shadow-xl hover:shadow-purple/20 transition-all duration-300 text-white font-semibold backdrop-blur-sm"
               >
-                <Mail className="w-5 h-5 text-purple" />
-                <span className="text-sm md:text-base">elev8alpha@evolve8studio.com</span>
+                <Mail className="w-6 h-6 text-purple" />
+                <span>elev8alpha@evolve8studio.com</span>
               </motion.a>
             </div>
           </motion.div>
